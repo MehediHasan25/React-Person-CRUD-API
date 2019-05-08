@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose= require('mongoose');
-const PersonModel = require('../rest-api/model/Person');
+const PersonModel = require('./model/Person');
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
@@ -84,6 +84,18 @@ app.delete('/delete/:id',(req,res)=>{
         res.status(200).json(response);
     });
 });
- 
+
+app.post('/search/:name', (req,res)=>{
+ PersonModel.findOne({name: req.params.name},(error,response)=>{
+     if(!error){
+         res.json(response);
+     }
+     console.log("This Person is not found");
+     res.send("not found");
+ });
+});
+
+
+
 const port= process.env.PORT || 5000; 
 app.listen(port, ()=> console.log(`Server is running on ${port}`));
