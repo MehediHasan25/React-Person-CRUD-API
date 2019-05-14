@@ -59,9 +59,9 @@ app.post('/update/:id', (req, res) => {
         if (err) {
             response.status(400).json({ error: "Id is not found" });
         } else {
-            response.name = req.body.name,
-                response.organization = req.body.organization,
-                response.designation = req.body.designation
+            response.name = req.body.name.toString().trim(),
+                response.organization = req.body.organization.toString().trim(),
+                response.designation = req.body.designation.toString().trim()
 
             response.save()
                 .then(person => {
